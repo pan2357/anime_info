@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = User.find(@comment.user_id).name
+%p
+  %b Commentable type:
+  = @comment.commentable_type
+
+%p
+  %b Commentable id:
+  = @comment.commentable_id
+
+%p
+  %b Commentable name:
+  - case @comment.commentable_type
+  - when "Anime"
+    = Anime.find(@comment.commentable_id).name
+  - when "Source"
+    = Source.find(@comment.commentable_id).name
+  - when "News"
+    = News.find(@comment.commentable_id).headline
+
+%p
+  %b Msg:
+  = @comment.msg
+
+= link_to 'Edit', edit_comment_path(@comment)
+\|
+= link_to 'Back', comments_path

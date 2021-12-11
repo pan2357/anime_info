@@ -1,0 +1,41 @@
+%h1 Listing comments
+
+%table.row-border#comments_index_table
+  %thead
+    %tr
+      %th User
+      %th Commentable type
+      %th Commentable id
+      %th Commentable name
+      %th Msg
+      %th
+      %th
+      %th
+
+  %tbody
+    - @comments.each do |comment|
+      %tr
+        %td= User.find(comment.user_id).name
+        %td= comment.commentable_type
+        %td= comment.commentable_id
+        %td
+          - case comment.commentable_type
+          - when "Anime"
+            = Anime.find(comment.commentable_id).name
+          - when "Source"
+            = Source.find(comment.commentable_id).name
+          - when "News"
+            = News.find(comment.commentable_id).headline
+        %td= comment.msg
+        %td= link_to 'Show', comment
+        %td= link_to 'Edit', edit_comment_path(comment)
+        %td= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Comment', new_comment_path
+
+:javascript
+  $(document).ready( function () {
+    $('#comments_index_table').DataTable();
+  } );

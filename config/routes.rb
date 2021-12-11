@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :comments
+  resources :likes
   resources :mylists
   resources :follows
   resources :news

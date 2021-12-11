@@ -1,0 +1,39 @@
+%h1 Listing likes
+
+%table.row-border#likes_index_table
+  %thead
+    %tr
+      %th User
+      %th Likeable type
+      %th Likeable id
+      %th Likeable name
+      %th
+      %th
+      %th
+
+  %tbody
+    - @likes.each do |like|
+      %tr
+        %td= User.find(like.user_id).name
+        %td= like.likeable_type
+        %td= like.likeable_id
+        %td
+          - case like.likeable_type
+          - when "Anime"
+            = Anime.find(like.likeable_id).name
+          - when "Source"
+            = Source.find(like.likeable_id).name
+          - when "News"
+            = News.find(like.likeable_id).headline
+        %td= link_to 'Show', like
+        %td= link_to 'Edit', edit_like_path(like)
+        %td= link_to 'Destroy', like, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Like', new_like_path
+
+:javascript
+  $(document).ready( function () {
+    $('#likes_index_table').DataTable();
+  } );

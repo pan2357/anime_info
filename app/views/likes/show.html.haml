@@ -1,0 +1,26 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = User.find(@like.user_id).name
+%p
+  %b Likeable type:
+  = @like.likeable_type
+
+%p
+  %b Likeable id:
+  = @like.likeable_id
+
+%p
+  %b Likeable name:
+  - case @like.likeable_type
+  - when "Anime"
+    = Anime.find(@like.likeable_id).name
+  - when "Source"
+    = Source.find(@like.likeable_id).name
+  - when "News"
+    = News.find(@like.likeable_id).headline
+
+= link_to 'Edit', edit_like_path(@like)
+\|
+= link_to 'Back', likes_path
