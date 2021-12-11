@@ -1,0 +1,16 @@
+-# frozen_string_literal: true
+= simple_form_for(@anime) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    = f.input :name
+    = f.input :synopsis
+    = f.input :day_in_week, hint: 'Sunday is 0 and so on.'
+    = f.input :show_time, hint: 'Input time in UTC'
+    = f.input :on_air
+    = f.input :episode
+    = f.input :image
+
+  .form-actions
+    = f.button :submit, class: "btn btn-primary", style:"margin: 5px;"

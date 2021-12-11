@@ -1,0 +1,39 @@
+%h1 Listing sources
+
+%table.row-border#sources_index_table
+  %thead
+    %tr
+      %th Name
+      %th Category
+      %th Desc
+      %th Anime
+      %th Image
+      %th
+      %th
+      %th
+
+  %tbody
+    - @sources.each do |source|
+      %tr
+        %td= source.name
+        %td= source.category
+        %td= source.desc
+        %td= Anime.find(source.anime_id).name
+        %td
+          - if source.image.attached?
+            = image_tag source.image, style: "height: 250px; display: block; margin-left: auto; margin-right: auto;"
+        %td= link_to 'Show', source
+        %td= link_to 'Edit', edit_source_path(source)
+        %td= link_to 'Destroy', source, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Source', new_source_path
+
+:javascript
+  $(document).ready( function () {
+    $('#sources_index_table').DataTable({
+      "ordering": true,
+      "order": [[0,'asc']]
+    });
+  } );

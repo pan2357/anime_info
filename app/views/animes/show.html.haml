@@ -1,0 +1,28 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @anime.name
+%p
+  %b Synopsis:
+  = @anime.synopsis
+%p
+  %b Day in week:
+  = @anime.day_in_week
+%p
+  %b Show time:
+  = @anime.show_time
+%p
+  %b On air:
+  = @anime.on_air
+%p
+  %b Episode:
+  = @anime.episode
+%p
+  %b Image:
+  - if @anime.image.attached?
+    = image_tag @anime.image, style: "height: 250px; display: block;"
+
+= link_to 'Edit', edit_anime_path(@anime)
+\|
+= link_to 'Back', animes_path

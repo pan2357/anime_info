@@ -1,0 +1,14 @@
+-# frozen_string_literal: true
+= simple_form_for(@source) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    = f.input :name
+    = f.input :category
+    = f.input :desc
+    = f.association :anime
+    = f.input :image
+
+  .form-actions
+    = f.button :submit, class: "btn btn-primary", style: "margin: 5px;"

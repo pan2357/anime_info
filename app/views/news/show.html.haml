@@ -1,0 +1,16 @@
+%p#notice= notice
+
+%p
+  %b Headline:
+  = @news.headline
+%p
+  %b Content:
+  = @news.content
+%p
+  %b Image:
+  - if @news.image.attached?
+    = image_tag @news.image, style: "height: 250px; display: block;"
+
+= link_to 'Edit', edit_news_path(@news)
+\|
+= link_to 'Back', news_index_path

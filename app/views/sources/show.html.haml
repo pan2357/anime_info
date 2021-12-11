@@ -1,0 +1,22 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @source.name
+%p
+  %b Category:
+  = @source.category
+%p
+  %b Desc:
+  = @source.desc
+%p
+  %b Anime:
+  = Anime.find(@source.anime_id).name
+%p
+  %b Image:
+  - if @source.image.attached?
+    = image_tag @source.image, style: "height: 250px; display: block;"
+
+= link_to 'Edit', edit_source_path(@source)
+\|
+= link_to 'Back', sources_path

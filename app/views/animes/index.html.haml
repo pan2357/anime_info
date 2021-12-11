@@ -1,0 +1,48 @@
+%h1 Listing animes
+
+%table.row-border#animes_index_table
+  %thead
+    %tr
+      %th Name
+      %th Synopsis
+      %th{style: "display: none;"} Day in week (Sunday is 0)
+      %th Day in week
+      %th Show time
+      %th On air
+      %th Episode
+      %th Image
+      %th
+      %th
+      %th
+
+  %tbody
+    - @animes.each do |anime|
+      %tr
+        %td= anime.name
+        %td= anime.synopsis
+        -# %td= anime.synopsis.first(500)
+        -# %td= truncate(anime.synopsis, length: 200)
+        %td{style: "display: none;"}= "#{(anime.day_in_week+7-Time.now.getlocal.wday)%7}"
+        %td= Date::DAYNAMES[anime.day_in_week]
+        %td= anime.show_time.getlocal
+        %td= anime.on_air
+        %td= anime.episode
+        -# %td= anime.image
+        %td
+          - if anime.image.attached?
+            = image_tag anime.image, style: "height: 250px; display: block; margin-left: auto; margin-right: auto;"
+        %td= link_to 'Show', anime
+        %td= link_to 'Edit', edit_anime_path(anime)
+        %td= link_to 'Destroy', anime, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Anime', new_anime_path
+
+:javascript
+  $(document).ready( function () {
+    $('#animes_index_table').DataTable({
+      "ordering": true,
+      "order": [[2,'asc'], [4,'asc']]
+    });
+  } );
