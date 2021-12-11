@@ -1,12 +1,11 @@
 -# frozen_string_literal: true
-= simple_form_for(@news) do |f|
+= simple_form_for(@follow) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   .form-inputs
-    = f.input :headline
-    = f.input :content
-    = f.input :image
+    = f.association :user
+    = f.association :anime
 
   .form-actions
     = f.button :submit, class: "btn btn-primary", style: "margin: 5px 0px;"

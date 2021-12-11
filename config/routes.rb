@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :mylists
+  resources :follows
   resources :news
   resources :sources
   resources :platforms

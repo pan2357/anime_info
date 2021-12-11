@@ -1,0 +1,28 @@
+%h1 Listing follows
+
+%table.row-border#follows_index_table
+  %thead
+    %tr
+      %th User
+      %th Anime
+      %th
+      %th
+      %th
+
+  %tbody
+    - @follows.each do |follow|
+      %tr
+        %td= User.find(follow.user_id).name
+        %td= Anime.find(follow.anime_id).name
+        %td= link_to 'Show', follow
+        %td= link_to 'Edit', edit_follow_path(follow)
+        %td= link_to 'Destroy', follow, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Follow', new_follow_path
+
+:javascript
+  $(document).ready( function () {
+    $('#follows_index_table').DataTable();
+  } );

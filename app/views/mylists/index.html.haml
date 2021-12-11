@@ -1,0 +1,28 @@
+%h1 Listing mylists
+
+%table.row-border#mylists_index_table
+  %thead
+    %tr
+      %th User
+      %th Anime
+      %th
+      %th
+      %th
+
+  %tbody
+    - @mylists.each do |mylist|
+      %tr
+        %td= User.find(mylist.user_id).name
+        %td= Anime.find(mylist.anime_id).name
+        %td= link_to 'Show', mylist
+        %td= link_to 'Edit', edit_mylist_path(mylist)
+        %td= link_to 'Destroy', mylist, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Mylist', new_mylist_path
+
+:javascript
+  $(document).ready( function () {
+    $('#mylists_index_table').DataTable();
+  } );

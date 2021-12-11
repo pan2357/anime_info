@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = User.find(@mylist.user_id).name
+%p
+  %b Anime:
+  = Anime.find(@mylist.anime_id).name
+
+= link_to 'Edit', edit_mylist_path(@mylist)
+\|
+= link_to 'Back', mylists_path
