@@ -5,7 +5,7 @@
 
   .form-inputs
     = f.association :user
-    = f.input :commentable_type, collection: ['Anime','Source','News']
+    = f.input :commentable_type, collection: ['Anime','Source','News'], include_blank: false
     = f.input :commentable_id, label: 'Commentable id', hint: 'Input ID as integer'
     = f.input :msg
 
