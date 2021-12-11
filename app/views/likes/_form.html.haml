@@ -5,7 +5,7 @@
 
   .form-inputs
     = f.association :user
-    = f.input :likeable_type, hint: 'Either one of "Anime","Source","News"'
+    = f.input :likeable_type, collection: ['Anime','Source','News']
     = f.input :likeable_id, label: 'Likable id', hint: 'Input ID as integer'
 
   .form-actions
