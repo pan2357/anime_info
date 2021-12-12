@@ -3,15 +3,15 @@
 %p
   %b Name:
   = @anime.name
-%p
+%p{style: "white-space: pre-wrap;"}
   %b Synopsis:
   = @anime.synopsis
 %p
   %b Day in week:
-  = @anime.day_in_week
+  = Date::DAYNAMES[@anime.day_in_week]
 %p
   %b Show time:
-  = @anime.show_time
+  = @anime.show_time.getlocal.strftime("%H:%M UTC %z")
 %p
   %b On air:
   = @anime.on_air

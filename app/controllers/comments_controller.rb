@@ -56,6 +56,26 @@ class CommentsController < ApplicationController
     end
   end
 
+  def comment_asn
+    if session[:user_id]
+      @comment = Comment.new(comment_params)
+      @comment.save
+      redirect_to request.referrer
+    else
+      redirect_to login_path, alert: "Please log in first"
+    end
+  end
+
+  def uncomment_asn
+    if session[:user_id]
+      @comment = Comment.find_by(id: comment_params[:id])
+      @comment.destroy
+      redirect_to request.referrer
+    else
+      redirect_to login_path, alert: "Please log in first"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
@@ -64,6 +84,6 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:user_id, :commentable_id, :commentable_type, :msg)
+      params.require(:comment).permit(:user_id, :commentable_id, :commentable_type, :msg, :id)
     end
 end

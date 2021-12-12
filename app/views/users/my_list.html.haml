@@ -1,0 +1,24 @@
+%h1 Watch List
+
+%table.cell-border#watch_lists_index_table
+  %thead
+    %tr
+      %th Name
+      %th Added at
+      %th Remove from the list
+
+  %tbody
+    - @lists.each do |list|
+      - @anime = list.anime
+      %tr
+        %td= link_to @anime.name, anime_page_path(@anime.name.parameterize.underscore), class: "fs-5 text-decoration-none text-primary bg-transparent"
+        %td= list.created_at.getlocal
+        %td= button_to 'Remove', my_list_path, params: {mylist:{user_id: list.user_id, anime_id: list.anime_id}}, method: :delete, class: "btn btn-danger", style: "display: block; margin-left: auto; margin-right: auto;"
+
+:javascript
+  $(document).ready( function () {
+    $('#watch_lists_index_table').DataTable({
+      "ordering": true,
+      "order": [[0,'asc']]
+    });
+  } );

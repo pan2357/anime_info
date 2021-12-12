@@ -56,6 +56,26 @@ class LikesController < ApplicationController
     end
   end
 
+  def like_asn
+    if session[:user_id]
+      @like = Like.new(like_params)
+      @like.save
+      redirect_to request.referrer
+    else
+      redirect_to login_path, alert: "Please log in first"
+    end
+  end
+
+  def unlike_asn
+    if session[:user_id]
+      @like = Like.find_by(like_params)
+      @like.destroy
+      redirect_to request.referrer
+    else
+      redirect_to login_path, alert: "Please log in first"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_like

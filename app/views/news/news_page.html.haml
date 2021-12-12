@@ -1,0 +1,51 @@
+%h1.text-primary.fs-3= @news.headline
+
+.row
+    .col-4
+        - if @news.image.attached?
+            = image_tag @news.image, class: "h-auto w-75 m-3"
+        
+    .col
+        %br
+        %h5= @news.created_at.getlocal
+        %p.fs-6{style: "white-space: pre-wrap;"}= @news.content
+
+.row
+    .col-2.position-relative
+        %h5.like_lister.fs-4.text-decoration-none.text-success.bg-transparent.position-absolute.top-50.start-50.translate-middle{data:"#{@news.get_liked_user_names}"}= "Like : #{@news.liked_users.count}"
+    .col-1
+        - if @news.this_user_liked(session[:user_id])
+            = button_to 'Unlike', like_manager_path, params: {like:{user_id: session[:user_id], likeable_type: "News", likeable_id: @news.id}}, method: :delete, class: "btn btn-danger m-2"
+        - else
+            = button_to 'Like', like_manager_path, params: {like:{user_id: session[:user_id], likeable_type: "News", likeable_id: @news.id}}, method: :post, class: "btn btn-primary m-2"
+
+.row
+    %h4.fw-bold Comment
+    = simple_form_for(@comment, url: comment_manager_path) do |f|
+
+        .form-inputs
+            = f.input :msg
+            = f.hidden_field :user_id, value: session[:user_id]
+            = f.hidden_field :commentable_type, value: "News"
+            = f.hidden_field :commentable_id, value: @news.id
+
+        .form-actions.mt-2
+            = f.button :submit, "Submit Comment", class: "btn btn-primary"
+
+.row
+    - @news.comments.order('created_at DESC').each do |c|
+        .card.m-3.p-1.w-75
+            .card-header
+                .row
+                    .col-1
+                        %h5.fs-4= User.find_by(id: c.user_id).name
+                    .col.position-relative
+                        - if c.user_id == session[:user_id]
+                            = button_to "Delete comment", comment_manager_path, params: {comment:{id: c.id}}, method: :delete, class: "btn btn-danger p-1 position-absolute top-0 end-0"
+            .card-body
+                %p.card-text.fs-6{style: "white-space: pre-wrap;"}= c.msg
+            .card-footer
+                %small= c.created_at.getlocal
+
+
+

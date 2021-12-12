@@ -26,7 +26,7 @@
             = Source.find(comment.commentable_id).name
           - when "News"
             = News.find(comment.commentable_id).headline
-        %td= comment.msg
+        %td{style: "white-space: pre-wrap;"}= comment.msg
         %td= link_to 'Show', comment
         %td= link_to 'Edit', edit_comment_path(comment)
         %td= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' }

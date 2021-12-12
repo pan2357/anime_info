@@ -47,6 +47,26 @@ class FollowsController < ApplicationController
     end
   end
 
+  def follow_a
+    if session[:user_id]
+      @follow = Follow.new(follow_params)
+      @follow.save
+      redirect_to request.referrer
+    else
+      redirect_to login_path, alert: "Please log in first"
+    end
+  end
+
+  def unfollow_a
+    if session[:user_id]
+      @follow = Follow.find_by(follow_params)
+      @follow.destroy
+      redirect_to request.referrer
+    else
+      redirect_to login_path, alert: "Please log in first"
+    end
+  end
+
   # DELETE /follows/1 or /follows/1.json
   def destroy
     @follow.destroy

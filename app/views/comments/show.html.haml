@@ -21,7 +21,7 @@
   - when "News"
     = News.find(@comment.commentable_id).headline
 
-%p
+%p{style: "white-space: pre-wrap;"}
   %b Msg:
   = @comment.msg
 

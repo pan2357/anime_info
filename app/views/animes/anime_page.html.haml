@@ -1,0 +1,79 @@
+%h1.text-primary= @anime.name
+
+.row
+    .col-4
+        - if @anime.image.attached?
+            = image_tag @anime.image, class: "h-auto w-75 m-3"
+        
+    .col
+        %h5
+            %b Day :
+            = "#{Date::DAYNAMES[@anime.day_in_week]}"
+            %b Time :
+            = "#{@anime.show_time.getlocal.strftime("%H:%M UTC %z")}"
+        %h5
+            %b Episode :
+            = "#{@anime.episode}"
+        %h5
+            %b Synopsis :
+        %p.fs-6{style: "white-space: pre-wrap;"}= @anime.synopsis
+        %h5
+            %b Source :
+        - @anime.sources.order('category').each do |s|
+            = link_to s.category, source_page_path(s.name.parameterize.underscore), class: "m-2 fs-5 fw-normal text-decoration-none text-primary"
+        %br
+        - @anime.platforms.order('name').each do |p|
+            - if @platform_color.include?(p.name)
+                = link_to p.name, p.link, class: "btn btn-#{@platform_color[p.name]} card-text m-2 text-white"
+            - else
+                = link_to p.name, p.link, class: "btn btn-success card-text m-2"
+
+.row
+    .col-2.position-relative
+        %h5.like_lister.fs-4.text-decoration-none.text-success.bg-transparent.position-absolute.top-50.start-50.translate-middle{data:"#{@anime.get_liked_user_names}"}= "Like : #{@anime.liked_users.count}"
+    .col-1
+        - if @anime.this_user_liked(session[:user_id])
+            = button_to 'Unlike', like_manager_path, params: {like:{user_id: session[:user_id], likeable_type: "Anime", likeable_id: @anime.id}}, method: :delete, class: "btn btn-danger m-2"
+        - else
+            = button_to 'Like', like_manager_path, params: {like:{user_id: session[:user_id], likeable_type: "Anime", likeable_id: @anime.id}}, method: :post, class: "btn btn-primary m-2"
+    .col-1
+        - if @anime.this_user_followed(session[:user_id])
+            = button_to 'Unfollow', follow_manager_path, params: {follow:{user_id: session[:user_id], anime_id: @anime.id}}, method: :delete, class: "btn btn-danger m-2"
+        - else
+            = button_to 'Follow', follow_manager_path, params: {follow:{user_id: session[:user_id], anime_id: @anime.id}}, method: :post, class: "btn btn-primary m-2"
+    .col-1
+        - if @anime.this_user_saved(session[:user_id])
+            = button_to 'Remove from Watch List', my_list_path, params: {mylist:{user_id: session[:user_id], anime_id: @anime.id}}, method: :delete, class: "btn btn-danger m-2"
+        - else
+            = button_to 'Add to Watch List', my_list_path, params: {mylist:{user_id: session[:user_id], anime_id: @anime.id}}, method: :post, class: "btn btn-info m-2 text-white"
+
+.row
+    %h4.fw-bold Comment
+    = simple_form_for(@comment, url: comment_manager_path) do |f|
+
+        .form-inputs
+            = f.input :msg
+            = f.hidden_field :user_id, value: session[:user_id]
+            = f.hidden_field :commentable_type, value: "Anime"
+            = f.hidden_field :commentable_id, value: @anime.id
+
+        .form-actions.mt-2
+            = f.button :submit, "Submit Comment", class: "btn btn-primary"
+
+.row
+    - @anime.comments.order('created_at DESC').each do |c|
+        .card.m-3.p-1.w-75
+            .card-header
+                .row
+                    .col-1
+                        %h5.fs-4= User.find_by(id: c.user_id).name
+                    .col.position-relative
+                        - if c.user_id == session[:user_id]
+                            = button_to "Delete comment", comment_manager_path, params: {comment:{id: c.id}}, method: :delete, class: "btn btn-danger p-1 position-absolute top-0 end-0"
+            .card-body
+                %p.card-text.fs-6{style: "white-space: pre-wrap;"}= c.msg
+            .card-footer
+                %small= c.created_at.getlocal
+
+
+

@@ -56,6 +56,11 @@ class NewsController < ApplicationController
     end
   end
 
+  def news_page
+    @news = News.find_by(id: params[:id])
+    @comment = Comment.new
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_news

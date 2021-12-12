@@ -19,12 +19,12 @@
     - @animes.each do |anime|
       %tr
         %td= anime.name
-        %td= anime.synopsis
+        %td{style: "white-space: pre-wrap;"}= anime.synopsis
         -# %td= anime.synopsis.first(500)
         -# %td= truncate(anime.synopsis, length: 200)
         %td{style: "display: none;"}= "#{(anime.day_in_week+7-Time.now.getlocal.wday)%7}"
         %td= Date::DAYNAMES[anime.day_in_week]
-        %td= anime.show_time.getlocal
+        %td= anime.show_time.getlocal.strftime("%H:%M UTC %z")
         %td= anime.on_air
         %td= anime.episode
         -# %td= anime.image

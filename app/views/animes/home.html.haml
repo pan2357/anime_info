@@ -1,0 +1,12 @@
+%h1 Home
+
+- if alert != nil
+    %p.alert.alert-danger#alert{role: "alert"}= alert
+- if notice != nil
+    %p.alert.alert-success#notice{role: "alert"}= notice
+
+.row
+    .col-8
+        = render 'animes/animes_list'
+    .col
+        = render 'news/news_list'

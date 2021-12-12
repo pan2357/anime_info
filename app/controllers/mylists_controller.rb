@@ -56,6 +56,26 @@ class MylistsController < ApplicationController
     end
   end
 
+  def save_my_list
+    if session[:user_id]
+      @mylist = Mylist.new(mylist_params)
+      @mylist.save
+      redirect_to request.referrer
+    else
+      redirect_to login_path, alert: "Please log in first"
+    end
+  end
+
+  def unsave_my_list
+    if session[:user_id]
+      @mylist = Mylist.find_by(mylist_params)
+      @mylist.destroy
+      redirect_to request.referrer
+    else
+      redirect_to login_path, alert: "Please log in first"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mylist

@@ -1,0 +1,36 @@
+- @animes.each do |a|
+    .card.m-3.w-100
+        .card-body
+            .row
+                .col-4
+                    - if a.image.attached?
+                        = image_tag a.image, class: "h-auto w-75"
+                .col-8
+                    %h4= link_to a.name, anime_page_path(a.name.parameterize.underscore), class: "card-title fs-3 fw-bold text-decoration-none text-primary"
+                    %h5.card-text
+                        %b Day :
+                        = "#{Date::DAYNAMES[a.day_in_week]}"
+                        %b Time :
+                        = "#{a.show_time.getlocal.strftime("%H:%M UTC %z")}"
+                    %h5.card-text
+                        %b Episode :
+                        = "#{a.episode}"
+                    - a.platforms.order('name').each do |p|
+                        - if @platform_color.include?(p.name)
+                            = link_to p.name, p.link, class: "btn btn-#{@platform_color[p.name]} card-text m-1 text-white"
+                            %br
+                        - else
+                            = link_to p.name, p.link, class: "btn btn-success card-text m-1"
+                            %br
+        .card-footer
+            .row
+                .col
+                    - if a.this_user_liked(session[:user_id])
+                        = button_to 'Unlike', like_manager_path, params: {like:{user_id: session[:user_id], likeable_type: "Anime", likeable_id: a.id}}, method: :delete, class: "btn btn-danger", style: "display: block; margin: auto;"
+                    - else
+                        = button_to 'Like', like_manager_path, params: {like:{user_id: session[:user_id], likeable_type: "Anime", likeable_id: a.id}}, method: :post, class: "btn btn-primary", style: "display: block; margin: auto;"
+                .col
+                    - if a.this_user_followed(session[:user_id])
+                        = button_to 'Unfollow', follow_manager_path, params: {follow:{user_id: session[:user_id], anime_id: a.id}}, method: :delete, class: "btn btn-danger", style: "display: block; margin: auto;"
+                    - else
+                        = button_to 'Follow', follow_manager_path, params: {follow:{user_id: session[:user_id], anime_id: a.id}}, method: :post, class: "btn btn-primary", style: "display: block; margin: auto;"

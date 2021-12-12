@@ -17,7 +17,7 @@
       %tr
         %td= source.name
         %td= source.category
-        %td= source.desc
+        %td{style: "white-space: pre-wrap;"}= source.desc
         %td= Anime.find(source.anime_id).name
         %td
           - if source.image.attached?

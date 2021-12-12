@@ -15,7 +15,7 @@
     - @news.each do |news|
       %tr
         %td= news.headline
-        %td= news.content
+        %td{style: "white-space: pre-wrap;"}= news.content
         %td
           - if news.image.attached?
             = image_tag news.image, style: "height: 250px; display: block; margin-left: auto; margin-right: auto;"

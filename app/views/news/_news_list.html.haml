@@ -1,0 +1,17 @@
+- @news.each do |n|
+    .card.m-3.w-100
+        .card-header.text-start
+            %h6= link_to n.headline, news_page_path(n.id), class: "fw-bold text-decoration-none text-success"
+        .card-body
+            .row
+                .col-5
+                    - if n.image.attached?
+                        = image_tag n.image, class: "h-auto w-100"
+                .col
+                    %small= n.created_at.getlocal
+                    %p.card-text{style: "white-space: pre-wrap;"}= truncate(n.content,length:100)
+        .card-footer
+            - if n.this_user_liked(session[:user_id])
+                = button_to 'Unlike', like_manager_path, params: {like:{user_id: session[:user_id], likeable_type: "News", likeable_id: n.id}}, method: :delete, class: "btn btn-danger", style: "display: block; margin: auto;"
+            - else
+                = button_to 'Like', like_manager_path, params: {like:{user_id: session[:user_id], likeable_type: "News", likeable_id: n.id}}, method: :post, class: "btn btn-primary", style: "display: block; margin: auto;"

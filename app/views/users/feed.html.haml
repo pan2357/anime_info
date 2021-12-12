@@ -1,0 +1,16 @@
+%h1
+    You are logged in as :
+    %b= @user.name
+
+- if alert != nil
+    %p.alert.alert-danger#alert{role: "alert"}= alert
+- if notice != nil
+    %p.alert.alert-success#notice{role: "alert"}= notice
+
+= link_to 'My List', my_list_path, class: "btn btn-primary", style: 'margin: 5px;'
+
+.row
+    .col-8
+        = render 'animes/animes_list'
+    .col
+        = render 'news/news_list'

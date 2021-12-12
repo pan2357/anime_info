@@ -56,6 +56,11 @@ class SourcesController < ApplicationController
     end
   end
 
+  def source_page
+    @source = Source.where("name LIKE ?", "%#{params[:name].split('_').join('%')}%").first
+    @comment = Comment.new
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_source

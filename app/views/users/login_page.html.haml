@@ -1,0 +1,16 @@
+%h1 Login
+
+- if alert != nil
+    %p.alert.alert-danger#alert{role: "alert"}= alert
+- if notice != nil
+    %p.alert.alert-success#notice{role: "alert"}= notice
+
+= simple_form_for(@user, url: login_path) do |f|
+    .form-inputs
+        = f.input :email
+        = f.input :password
+
+    .form-actions.mt-2
+        = f.button :submit, "Login", class: "btn btn-primary", style: 'margin: 5px;'
+        = link_to 'Register', register_path, class: 'btn btn-info', style: 'margin: 5px;'
+        = link_to 'Cancel', home_path, class: "btn btn-warning", style: "margin: 5px;"
