@@ -66,7 +66,7 @@
             .card-header
                 .row
                     .col-1
-                        %h5.fs-4= User.find_by(id: c.user_id).name
+                        %h5.fs-4= c.user.name
                     .col.position-relative
                         - if c.user_id == session[:user_id]
                             = button_to "Delete comment", comment_manager_path, params: {comment:{id: c.id}}, method: :delete, class: "btn btn-danger p-1 position-absolute top-0 end-0"
@@ -75,5 +75,5 @@
             .card-footer
                 %small= c.created_at.getlocal
 
-
+= render 'layouts/modal'
 

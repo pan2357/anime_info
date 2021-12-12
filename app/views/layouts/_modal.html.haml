@@ -1,0 +1,23 @@
+#myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :tabindex => "-1"}
+    .modal-dialog.modal-dialog-scrollable
+        .modal-content
+        .modal-header.bg-white
+            %h5#myModalLabel.modal-title Users who liked this post.
+            %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", :type => "button"}
+        .modal-body.bg-white
+            -# list of users goes here
+        .modal-footer.bg-white
+            %button.btn.btn-secondary{"data-bs-dismiss" => "modal", :type => "button"} Close
+
+:javascript
+    $(document).ready(function(){
+        var myModal = new bootstrap.Modal(document.getElementById('myModal'), {})
+        $(".like_lister").click(function(){
+            $(".modal-body").html("") // clear modal-body html content
+            $(this).attr("data").split(" ").map(myFunction)
+            function myFunction(user){
+                $(".modal-body").append($((document.createElement('p'))).text(user).attr({class:"fs-5 text-primary"}))
+            }
+            myModal.show()
+        });
+    });

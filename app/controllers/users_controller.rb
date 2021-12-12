@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
   before_action :logged_in, only: %i[ feed my_list ]
-  before_action :platform_colors, only: %i[ feed ]
 
   # GET /users or /users.json
   def index
@@ -98,6 +97,7 @@ class UsersController < ApplicationController
   end
 
   def feed
+    @platform_color = {'iQIYI' => 'success', 'AIS PLAY' => 'success', 'Ani-One Asia' => 'danger', 'Muse Thailand' => 'danger', 'Bilibili' => 'info'}
     @animes = @user.get_feed_anime
     @news = News.order('created_at DESC')
   end
@@ -113,10 +113,6 @@ class UsersController < ApplicationController
       else
         redirect_to login_path, alert: "Please log in first"
       end
-    end
-
-    def platform_colors
-      @platform_color = {'iQIYI' => 'success', 'AIS PLAY' => 'success', 'Ani-One Asia' => 'danger', 'Muse Thailand' => 'danger', 'Bilibili' => 'info'}
     end
 
     # Use callbacks to share common setup or constraints between actions.
