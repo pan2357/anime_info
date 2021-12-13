@@ -4,7 +4,7 @@ class WatchListsTest < ApplicationSystemTestCase
   test "add to watch list when not logged in" do
     visit home_path
     click_link "a1name"
-    find('[value="Add to Watch List"]').click
+    click_on "Add to Watch List"
     assert_text "Please log in first"
   end
 
@@ -19,19 +19,19 @@ class WatchListsTest < ApplicationSystemTestCase
     # at anime page
     visit home_path
     click_link "a1name"
-    find('[value="Add to Watch List"]').click
-    assert_selector '[value="Remove from Watch List"]'
+    click_on "Add to Watch List"
+    assert_button "Remove from Watch List"
 
     # at watch list page
     # check to see if the anime that we added to Watch List show up on Watch List page
     click_link "Watch List"
     assert_link "a1name"
-    find('[value="Remove"]').click
+    click_on "Remove"
     assert_no_link "a1name"
 
     visit home_path
     click_link "a1name"
-    assert_selector '[value="Add to Watch List"]'
-    assert_no_selector '[value="Remove from Watch List"]'
+    assert_button "Add to Watch List"
+    assert_no_button "Remove from Watch List"
   end 
 end

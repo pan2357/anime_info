@@ -34,13 +34,14 @@ class LikingsTest < ApplicationSystemTestCase
 
     # at home page
     visit home_path
+    assert_no_button "Unlike"
     page.all('input.btn.btn-primary')[2].click
-    assert_selector "input.btn.btn-danger"
+    assert_button "Unlike"
 
     # at anime page
     click_link "a1name"
     assert_selector ".like_lister", text: "Like : 0"
-    first('[value="Like"]').click
+    click_on "Like"
     assert_selector ".like_lister", text: "Like : 1"
     find('.like_lister').click
     assert_text "John"
@@ -50,7 +51,7 @@ class LikingsTest < ApplicationSystemTestCase
     click_link "a1name"
     click_link "Game"
     assert_selector ".like_lister", text: "Like : 0"
-    first('[value="Like"]').click
+    click_on "Like"
     assert_selector ".like_lister", text: "Like : 1"
     find('.like_lister').click
     assert_text "John"
@@ -58,9 +59,8 @@ class LikingsTest < ApplicationSystemTestCase
     # at news page
     visit home_path
     click_link "n1head"
-    # visit news_page_path(news(:n1).id)
     assert_selector ".like_lister", text: "Like : 0"
-    first('[value="Like"]').click
+    click_on "Like"
     assert_selector ".like_lister", text: "Like : 1"
     find('.like_lister').click
     assert_text "John"

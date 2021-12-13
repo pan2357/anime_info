@@ -11,7 +11,7 @@ class FollowingsTest < ApplicationSystemTestCase
     # at anime page
     visit home_path
     click_link "a1name"
-    first('[value="Follow"]').click
+    click_on "Follow"
     assert_text "Please log in first"
   end
 
@@ -25,19 +25,22 @@ class FollowingsTest < ApplicationSystemTestCase
 
     # at home page
     visit home_path
+    assert_no_button "Unfollow"
     page.all('[value="Follow"]').last.click
-    assert_selector "[value='Unfollow']"
-    find('[value="Unfollow"]').click
+    assert_button "Unfollow"
+    click_on "Unfollow"
+    assert_no_button "Unfollow"
 
     # at anime page
     click_link "a2name"
-    find('[value="Follow"]').click
-    assert_selector "[value='Unfollow']"
+    assert_no_button "Unfollow"
+    click_on "Follow"
+    assert_button "Unfollow"
 
     # check to see if all the animes that we have followed show up on the feed page
     click_link "Feed"
     assert_link "a2name"
-    find('[value="Unfollow"]').click
+    click_on "Unfollow"
     assert_no_link "a2name"
   end
 end
