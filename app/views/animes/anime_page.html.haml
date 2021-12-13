@@ -25,6 +25,7 @@
         - @anime.sources.order('category').each do |s|
             = link_to s.category, source_page_path(s.name.parameterize.underscore), class: "m-2 fs-5 fw-normal text-decoration-none text-primary"
         %br
+        - @platform_color = Hash[PlatformColor.all.pluck(:platform, :color)]
         - @anime.platforms.order('name').each do |p|
             - if @platform_color.include?(p.name)
                 = link_to p.name, p.link, class: "btn btn-#{@platform_color[p.name]} card-text m-2 text-white"

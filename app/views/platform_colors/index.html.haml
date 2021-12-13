@@ -1,0 +1,31 @@
+%h1 Listing platform_colors
+
+%table.row-border#platform_colors_index_table
+  %thead
+    %tr
+      %th Platform
+      %th Color
+      %th
+      %th
+      %th
+
+  %tbody
+    - @platform_colors.each do |platform_color|
+      %tr
+        %td= platform_color.platform
+        %td= platform_color.color
+        %td= link_to 'Show', platform_color
+        %td= link_to 'Edit', edit_platform_color_path(platform_color)
+        %td= link_to 'Destroy', platform_color, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Platform color', new_platform_color_path
+
+:javascript
+  $(document).ready( function () {
+    $('#platform_colors_index_table').DataTable({
+      "ordering": true,
+      "order": [[0,'asc']]
+    });
+  } );

@@ -1,0 +1,2 @@
+class PlatformColor < ApplicationRecord
+end

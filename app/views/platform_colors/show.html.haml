@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Platform:
+  = @platform_color.platform
+%p
+  %b Color:
+  = @platform_color.color
+
+= link_to 'Edit', edit_platform_color_path(@platform_color)
+\|
+= link_to 'Back', platform_colors_path

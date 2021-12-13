@@ -97,7 +97,6 @@ class UsersController < ApplicationController
   end
 
   def feed
-    @platform_color = {'iQIYI' => 'success', 'AIS PLAY' => 'success', 'Ani-One Asia' => 'danger', 'Muse Thailand' => 'danger', 'Bilibili' => 'info'}
     @animes = @user.get_feed_anime
     @news = News.order('created_at DESC')
   end

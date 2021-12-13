@@ -1,6 +1,5 @@
 class AnimesController < ApplicationController
   before_action :set_anime, only: %i[ show edit update destroy ]
-  before_action :platform_colors, only: %i[ home anime_page ]
 
   # GET /animes or /animes.json
   def index
@@ -60,7 +59,6 @@ class AnimesController < ApplicationController
   end
 
   def home
-    session[:current_url] = request.original_url
     @animes = Anime.select("*,(day_in_week+7-#{Time.now.getlocal.wday})%7 AS wday").order("on_air DESC, wday, show_time")
     @news = News.order('created_at DESC')
   end
@@ -74,10 +72,6 @@ class AnimesController < ApplicationController
   end
 
   private
-    def platform_colors
-      @platform_color = {'iQIYI' => 'success', 'AIS PLAY' => 'success', 'Ani-One Asia' => 'danger', 'Muse Thailand' => 'danger', 'Bilibili' => 'info'}
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_anime
       @anime = Anime.find(params[:id])
