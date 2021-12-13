@@ -1,28 +1,28 @@
 %nav.navbar.navbar-expand-lg.navbar-light.m-3{style: "background-color: #e3f2fd;"}
   .container-fluid
-    %a.navbar-brand{href: "/home", class: "bg-transparent fs-1"} anime-info
+    %a.navbar-brand{href: "/home", class: "fs-1"} anime-info
     %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.me-auto.mb-2.mb-lg-0
         %li.nav-item
-          %a.nav-link.active{"aria-current" => "page", href: "/home", class: "bg-transparent fs-3"} Home
+          %a.nav-link.active{"aria-current" => "page", href: "/home", class: "fs-3"} Home
         %li.nav-item
           - if session[:user_id]!=nil
-            %a.nav-link{:href => "/feed", class: "bg-transparent fs-3"} Feed
+            %a.nav-link{:href => "/feed", class: "fs-3"} Feed
         %li.nav-item
           - if session[:user_id]!=nil
-            %a.nav-link{:href => "/my_list", class: "bg-transparent fs-3"} Watch List
+            %a.nav-link{:href => "/my_list", class: "fs-3"} Watch List
       %ul.navbar-nav
         %li.nav-item
           - if session[:user_id]==nil
-            %a.nav-link{:href => "/login", class: "bg-transparent fs-3"} Log in
+            %a.nav-link{:href => "/login", class: "fs-3"} Log in
         %li.nav-item
           - if session[:user_id]==nil
-            %a.nav-link{:href => "/register", class: "bg-transparent fs-3"} Register
+            %a.nav-link{:href => "/register", class: "fs-3"} Register
         %li.nav-item
           - if session[:user_id]!=nil
-            %a.nav-link{:href => "/logout", class: "bg-transparent fs-3"} Log out
+            %a.nav-link{:href => "/logout", class: "fs-3"} Log out
       -# %form.d-flex
       -#   %input.form-control.me-2{"aria-label" => "Search", :placeholder => "Search", :type => "search"}/
       -#   %button.btn.btn-outline-success{:type => "submit"} Search
