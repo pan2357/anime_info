@@ -15,6 +15,9 @@
                     %h5.card-text
                         %b Episode :
                         = "#{a.episode}"
+                    %h5.card-text
+                        %b On Air Status :
+                        = a.on_air
                     - a.platforms.order('name').each do |p|
                         - if @platform_color.include?(p.name)
                             = link_to p.name, p.link, class: "btn btn-#{@platform_color[p.name]} card-text m-1 text-white"

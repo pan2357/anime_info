@@ -6,7 +6,7 @@ class AnimesController < ApplicationController
   def index
     # get list of animes
     # the top is the ones that is airing today
-    @animes = Anime.select("*,(day_in_week+7-#{Time.now.getlocal.wday})%7 AS wday").order("wday, show_time")
+    @animes = Anime.select("*,(day_in_week+7-#{Time.now.getlocal.wday})%7 AS wday").order("on_air DESC, wday, show_time")
   end
 
   # GET /animes/1 or /animes/1.json
@@ -61,7 +61,7 @@ class AnimesController < ApplicationController
 
   def home
     session[:current_url] = request.original_url
-    @animes = Anime.select("*,(day_in_week+7-#{Time.now.getlocal.wday})%7 AS wday").order("wday, show_time")
+    @animes = Anime.select("*,(day_in_week+7-#{Time.now.getlocal.wday})%7 AS wday").order("on_air DESC, wday, show_time")
     @news = News.order('created_at DESC')
   end
 

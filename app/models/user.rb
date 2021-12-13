@@ -22,7 +22,7 @@ class User < ApplicationRecord
     has_many :commented_news, through: :comments, source: :commentable, source_type: 'News'
 
     def get_feed_anime
-        return Anime.select("*,(day_in_week+7-#{Time.now.getlocal.wday})%7 AS wday").where(id: self.followed_animes.pluck('id'), on_air: true).order("wday, show_time")
+        return Anime.select("*,(day_in_week+7-#{Time.now.getlocal.wday})%7 AS wday").where(id: self.followed_animes.pluck('id'), on_air: true).order("on_air DESC, wday, show_time")
     end
     
 
