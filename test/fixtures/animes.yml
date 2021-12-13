@@ -1,17 +1,43 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  synopsis: MyText
-  day_in_week: 1
-  show_time: 2021-12-11 15:20:48
-  on_air: false
-  episode: 1
+# one:
+#   name: MyString
+#   synopsis: MyText
+#   day_in_week: 1
+#   show_time: 2021-12-11 15:20:48
+#   on_air: false
+#   episode: 1
 
-two:
-  name: MyString
-  synopsis: MyText
+# two:
+#   name: MyString
+#   synopsis: MyText
+#   day_in_week: 1
+#   show_time: 2021-12-11 15:20:48
+#   on_air: false
+#   episode: 1
+
+#-------------------------------------
+
+a1:
+  name: a1name
+  synopsis: a1synopsis
   day_in_week: 1
-  show_time: 2021-12-11 15:20:48
-  on_air: false
-  episode: 1
+  show_time: 2021-12-13 20:30:00
+  on_air: true
+  episode: 20
+
+a2:
+  name: a2name
+  synopsis: a2synopsis
+  day_in_week: 1
+  show_time: 2021-12-13 22:30:00
+  on_air: true
+  episode: 15
+
+a3:
+  name: a3name
+  synopsis: a3synopsis
+  day_in_week: 0
+  show_time: 2021-12-13 15:30:00
+  on_air: true
+  episode: 6

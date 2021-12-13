@@ -68,6 +68,9 @@ class AnimesController < ApplicationController
   def anime_page
     @anime = Anime.where("name LIKE ?", "%#{params[:name].split('_').join('%')}%").first
     @comment = Comment.new
+    if @anime == nil
+      redirect_to home_path, alert: "There are no anime with that name"
+    end
   end
 
   private

@@ -9,3 +9,20 @@ two:
   name: MyString
   link: MyText
   anime: two
+
+#-------------------------------------
+
+p1:
+  name: p1
+  link: link1
+  anime: a1
+
+p2:
+  name: p2
+  link: link2
+  anime: a2
+
+p3:
+  name: p3
+  link: link3
+  anime: a3

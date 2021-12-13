@@ -1,5 +1,5 @@
 - @news.each do |n|
-    .card.m-3.w-100
+    .card.m-3.w-100.news-card
         .card-header.text-start
             %h6= link_to n.headline, news_page_path(n.id), class: "fw-bold text-decoration-none text-success"
         .card-body

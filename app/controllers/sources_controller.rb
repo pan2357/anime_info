@@ -59,6 +59,9 @@ class SourcesController < ApplicationController
   def source_page
     @source = Source.where("name LIKE ?", "%#{params[:name].split('_').join('%')}%").first
     @comment = Comment.new
+    if @source == nil
+      redirect_to home_path, alert: "There are no source with that name"
+    end
   end
 
   private

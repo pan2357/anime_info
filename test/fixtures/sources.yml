@@ -11,3 +11,23 @@ two:
   category: MyString
   desc: MyText
   anime: two
+
+#-------------------------------------
+
+s1:
+  name: s1name
+  category: Game
+  desc: s1desc
+  anime: a1
+
+s2:
+  name: s2name
+  category: Light Novel
+  desc: s2desc
+  anime: a2
+
+s3:
+  name: s3name
+  category: Manga
+  desc: s3desc
+  anime: a3

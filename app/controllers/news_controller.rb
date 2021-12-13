@@ -59,6 +59,9 @@ class NewsController < ApplicationController
   def news_page
     @news = News.find_by(id: params[:id])
     @comment = Comment.new
+    if @news == nil
+      redirect_to home_path, alert: "There are no news with that id"
+    end
   end
 
   private

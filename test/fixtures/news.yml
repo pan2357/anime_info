@@ -7,3 +7,17 @@ one:
 two:
   headline: MyString
   content: MyText
+
+#-------------------------------------
+
+n1:
+  headline: n1head
+  content: n1content
+
+n2:
+  headline: n2head
+  content: n2content
+
+n3:
+  headline: n3head
+  content: n3content
